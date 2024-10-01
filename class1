@@ -1,0 +1,86 @@
+#include <iostream>
+#include <cmath>
+#include <conio.h>
+
+using namespace std;
+
+struct Frac { int P; int Q; };
+Frac F;
+
+class Drob {
+	Frac A;
+public:
+	void vvod();
+	int NOD();
+	void sokr();
+	void stepen(int N);
+	void print();
+};
+
+void Drob::vvod() {
+	cout << "Числитель: "; cin >> A.P;
+	cout << "Знаминатель: "; cin >> A.Q;
+}
+
+int Drob::NOD() {
+	int M, N;
+	M = abs(A.P);
+	N = A.Q;
+	while (M != N) {
+		if (M > N) {
+			if (M % N != 0) {
+				M = M % N;
+			}
+			else {
+				M = N;
+			}
+		}
+		else {
+			if (N % M != 0) {
+				N = N % M;
+			}
+			else {
+				N = M;
+			}
+		}
+		return M;
+	}
+}
+void Drob::sokr() {
+	int x;
+	x = NOD();
+	if (A.P != 0) {
+		A.P = A.P / x;
+		A.Q = A.Q / x;
+	}
+	else {
+		A.Q = 1;
+	}
+}
+
+void Drob::stepen(int N) {
+	int i;
+	F.P = F.Q = 1;
+	for (i = 1; i <= N; i++) {
+		F.P *= A.P;
+		F.Q *= A.Q;
+	}
+}
+
+void Drob::print() {
+	cout << A.P << "/" << A.Q << '\n';
+}
+
+int main() {
+	setlocale(LC_CTYPE, "Russian");
+	Drob obj;
+	cout << "Введите дробь: " << '\n';
+	obj.vvod();
+	obj.sokr();
+	cout << "\nДробь после сокращения: " << '\n';
+	obj.print();
+	obj.stepen(2);
+	cout << "\nДробь, возведенная в квадрат: " << '\n';
+	cout << F.P << "/" << F.Q << '\n';
+	_getch();
+}
